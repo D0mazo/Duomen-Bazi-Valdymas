@@ -88,8 +88,8 @@ SELECT
 FROM dbo.Abonentas ab
 INNER JOIN dbo.Asmuo a  ON a.asmensID = ab.asmensID
 INNER JOIN dbo.Planas p ON p.planoID = ab.planoID
-WHERE ab.sutartiesPradzia >= '20130103'
-  AND ab.sutartiesPradzia <  '20130111'
+WHERE ab.sutartiesPradzia >= '20250103'
+  AND ab.sutartiesPradzia <  '20250111'
 ORDER BY ab.sutartiesPradzia;
 
 --9
