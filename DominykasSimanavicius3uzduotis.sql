@@ -57,6 +57,7 @@ INNER JOIN dbo.Operatorius o ON o.operatoriausID = ip.operatoriausID
 WHERE NOT EXISTS (SELECT 1 FROM dbo.Planas p
                   WHERE p.internetoPlanoID = ip.internetoPlanoID)
   AND ip.kiekisMB > 0
+  AND ip.kaina > 0 -- kaina negalės būti nulinė
 ORDER BY ip.kaina / ip.kiekisMB;
 
 
