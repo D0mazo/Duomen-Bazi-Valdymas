@@ -74,13 +74,19 @@ ORDER BY procentai DESC;
 
 
 -- 7. TOP 3 populiariausi planai
-SELECT TOP 3 WITH TIES
-    p.planoPavadinimas,
-    COUNT(*) AS abonentuKiekis
-FROM dbo.Abonentas ab
-INNER JOIN dbo.Planas p ON p.planoID = ab.planoID
-GROUP BY p.planoID, p.planoPavadinimas
-ORDER BY abonentuKiekis DESC;
+WITH planuReitingas AS (
+    SELECT
+        p.planoPavadinimas,
+        COUNT(*) AS abonentuKiekis,
+        DENSE_RANK() OVER (ORDER BY COUNT(*) DESC) AS vieta
+    FROM dbo.Abonentas ab
+    INNER JOIN dbo.Planas p ON p.planoID = ab.planoID
+    GROUP BY p.planoID, p.planoPavadinimas
+)
+SELECT vieta, planoPavadinimas, abonentuKiekis
+FROM planuReitingas
+WHERE vieta <= 3
+ORDER BY vieta, planoPavadinimas;
 
 
 -- 8. 10 atsitiktinių abonentų
